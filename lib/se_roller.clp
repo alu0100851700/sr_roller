@@ -68,7 +68,3 @@
 ;	else
 ;	 (assert (persona (sexo hombre))))
 ;)
-
-
-;; master
-;; develop de verdad
