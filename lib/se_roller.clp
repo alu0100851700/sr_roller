@@ -87,10 +87,3 @@
 =>
 	(printout t "Tu patin es el " ?n " de sexo " ?s " con precio: " ?p1 crlf)
 )
-
-
-(defrule prueba "Añade el sexo del cliente"
-	(persona (nombre P)(sexo ?s))
-=>
-	(printout t "Sexo: " ?s "  " ?s crlf)
-)
