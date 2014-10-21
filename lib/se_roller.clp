@@ -6,16 +6,16 @@
 )
 
 (deftemplate persona
-	(slot nombre(type SYMBOL))
+;	(slot nombre(type SYMBOL))
 	(slot sexo(type SYMBOL)(allowed-symbols hombre mujer))
 	(slot precio(type INTEGER))
 )
 (deffacts m
 ;	(roller (nombre SEBA FR)(precio 145)(modalidad Freeskate)(sexo hombre))
 	
-	(roller (nombre FR)(precio 150)(sexo hombre))
-	(roller (nombre T)(precio 156)(sexo hombre))
-	(roller (nombre J)(precio 151)(sexo mujer))
+	(roller (nombre FR)(precio 145)(sexo hombre))
+	(roller (nombre T)(precio 151)(sexo hombre))
+	(roller (nombre J)(precio 155)(sexo mujer))
 )
 
 
@@ -35,36 +35,43 @@
    (bind ?response (ask-question ?question si no))
    (if (or (eq ?response si) (eq ?response s))
        then TRUE 
-       else FALSE))
+       else FALSE)
+  )
 
 ;;; Hace una pregunta a la que hay que responder con un valor numérico
 (deffunction numeric-ask (?question)
-   (bind ?response (ask-question ?question (type INTEGER)))
+   (bind ?response (ask-question ?question 50 100 150 250 350 500))
 	?response
 )
 
-
-
-
 (defrule coin ""
-	(persona (sexo ?v)(precio ?p)
-	(roller (nombre ?S)(sexo ?v))
+	(persona (sexo ?v)(precio ?p1))
+	(roller (nombre ?S)(precio ?p2)(sexo ?v))
+	(test(> ?p1 (- ?p2 25)))
+	(test(< ?p1 (+ ?p2 50)))
 =>
-	(printout t "Tu patin es el " ?S " con precio: " ?p crlf)
+	(printout t "Tu patin es el " ?S " con precio: " ?p2 crlf)
 )
 
+(defrule sex_select ""
+=>
+	(if (si-o-no-p "Eres una mujer? (si/no)")
+	then
+	 (assert (persona (sexo mujer)))
+	else
+	 (assert (persona (sexo hombre))))
+)
 
 (defrule price_select ""
 =>
-	(numeric-ask "Cuanto tienes pensado gastar?")
-	 (assert (persona (precio ?response)))
+	(bind ?p (numeric-ask "Cuanto tienes pensado gastar? (50/100/175/250/325/500)"))
+	 (assert (persona (precio ?p)))
 )
 
-;(defrule _select ""
+
+
+;(defrule po_data ""
+;	(persona (sexo ?v)(precio ?p))
 ;=>
-;	(if (si-o-no-p "Eres una mujer? (si/no)")
-;	then
-;	 (assert (persona (sexo mujer)))
-;	else
-;	 (assert (persona (sexo hombre))))
+;	(printout t "Eres " ?v " con precio: " ?p crlf)
 ;)
