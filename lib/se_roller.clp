@@ -38,9 +38,18 @@
        else FALSE)
   )
 
+(deffunction numeric-ask-question (?question )
+   (printout t ?question)
+   (bind ?answer (read))
+;  (while () do
+;     (printout t ?question)
+;     (bind ?answer (read))
+;   )
+   ?answer)
+
 ;;; Hace una pregunta a la que hay que responder con un valor numérico
 (deffunction numeric-ask (?question)
-   (bind ?response (ask-question ?question 50 100 150 250 350 500))
+   (bind ?response (numeric-ask-question ?question))
 	?response
 )
 
@@ -64,7 +73,7 @@
 
 (defrule price_select ""
 =>
-	(bind ?p (numeric-ask "Cuanto tienes pensado gastar? (50/100/175/250/325/500)"))
+	(bind ?p (numeric-ask "Cuanto tienes pensado gastar? "))
 	 (assert (persona (precio ?p)))
 )
 
