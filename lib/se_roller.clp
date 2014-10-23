@@ -77,6 +77,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;	PATINES LARGA DISTANCIA
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	(roller (nombre VI_SUPERCRUISER)(marca POWERSLIDE)(precio 199.99)(modalidad speed)(sexo neutro))
+	(roller (nombre MAXXUM_100)(marca ROLLERBLADE)(precio 299.95)(modalidad speed)(sexo neutro))
+	(roller (nombre VI_FLYTE_2)(marca POWERSLIDE)(precio 199.99)(modalidad speed)(sexo neutro))
+	(roller (nombre VO2_90_PRO)(marca K2)(precio 235.90)(modalidad speed)(sexo neutro))
+	(roller (nombre VI_SUPERCRUISER)(marca POWERSLIDE)(precio 199.99)(modalidad speed)(sexo neutro))
+	(roller (nombre VI_SL)(marca POWERSLIDE)(precio 379.99)(modalidad speed)(sexo neutro))
+	(roller (nombre MARATHON)(marca POWERSLIDE)(precio 399.99)(modalidad speed)(sexo neutro))
+	(roller (nombre GRAND_PRIX)(marca POWERSLIDE)(precio 599.99)(modalidad speed)(sexo neutro))
+	(roller (nombre SWIFT)(marca DOOP)(precio 219.0)(modalidad speed)(sexo neutro))
+	(roller (nombre PRO_LONGMOUNT)(marca K2)(precio 529.0)(modalidad speed)(sexo neutro))
+	(roller (nombre RADICAL_100W)(marca K2)(precio 339.0)(modalidad speed)(sexo neutro))
+	(roller (nombre THUNDER)(marca ROCES)(precio 249.0)(modalidad speed)(sexo neutro))
+	(roller (nombre VANQUISH)(marca ROCES)(precio 1190.0)(modalidad speed)(sexo neutro))
+	(roller (nombre LAB)(marca ROCES)(precio 299.0)(modalidad speed)(sexo neutro))
 )
 
 ;;; Obtiene una respuesta de entre un conjunto de respuestas posibles
@@ -105,11 +119,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (deffunction numeric-ask-question (?question )
    (printout t ?question)
-   (bind ?answer (read))
-;  (while () do
-;     (printout t ?question)
-;     (bind ?answer (read))
-;   )
+   
+   (while (not(bind ?answer (read))) do
+     (printout t ?question)
+     (bind ?answer (read))
+   )
    ?answer
 )
 
@@ -180,9 +194,9 @@
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;;; Define el rango de precios p1-50 y p1+25
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	(test(>= ?p (- ?p1 25)))
-	(test(<= ?p (+ ?p1 50)))
+	(test(>= ?p (- ?p1 15)))
+	(test(<= ?p (+ ?p1 30)))
 	)
 =>
-	(printout t "Te recomendamos el patin " $?n " " ?m " " ?mc " con precio: " ?p1 crlf)
+	(printout t "Te recomendamos el patin " $?mc " " $?n " con precio: " ?p1 crlf)
 )
