@@ -140,20 +140,20 @@
 ;;; Hace pregunta acerca del estilo de patinaje
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (deffunction mod-ask ()
-	(if(si-o-no-p "¿Quieres usar tus patines solo para recorrer largas distancias? (si/no) ")
+	(if(si-o-no-p "Quieres patinar de forma agresiva (saltos, rampas, derrapes, ...)? (si/no) ")
 	then
-		(bind ?mod speed)
-	else
-		(if(si-o-no-p "¿Quieres usar tus patines solo para pasear? (si/no) ")
+		(if(si-o-no-p "Piensas patinar en skateparks? (si/no) ")
 		then
-			(bind ?mod fitness)
+			(bind ?mod agresivo)
 		else
-			(if (si-o-no-p "¿Quieres usar tus patines en un skatepark? (si/no) ")
-			then
-				(bind ?mod agresivo)
-			else
-				(bind ?mod freeskate)
-			)
+			(bind ?mod freeskate)
+		)
+	else
+		(if(si-o-no-p "Piensas recorrer grandes distancias (carril bici, carretera, ...)? (si/no) ")
+		then
+			(bind ?mod speed)
+		else
+			(bind ?mod fitness)
 		)
 	)
 	?mod
@@ -194,8 +194,8 @@
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;;; Define el rango de precios p1-50 y p1+25
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	(test(>= ?p (- ?p1 15)))
-	(test(<= ?p (+ ?p1 30)))
+	(test(>= ?p (- ?p1 (* ?p 0.06) 6)))
+	(test(<= ?p (+ ?p1 (* ?p 0.10) 10)))
 	)
 =>
 	(printout t "Te recomendamos el patin " $?mc " " $?n " con precio: " ?p1 crlf)
